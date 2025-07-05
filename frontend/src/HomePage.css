@@ -1,9 +1,49 @@
 .background-image {
-    background-image: url('../images/eldenring.png');
+    /*background-image: url('../images/eldenring.png');*/
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('../images/eldenring2.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     min-height: 100vh;
     display: flex;
     color: #d6b48e;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 1rem;
+}
+
+.description {
+    max-width: 60ch;
+}
+
+.buttons {
+    max-width: 400px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.about-section {
+    padding: 10px 10%;
+    text-align: center;
+}
+
+.about-section h1 {
+    text-align: center;
+}
+
+.about-section .submit-button {
+    margin: 0;
+    text-align: center;
+    align-items: center;
+}
+
+.about-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-gap: 40px;
+    margin-top: 50px;
+}
+
+.about-details div {
+    border: 0.8px solid #d6b48e;
 }

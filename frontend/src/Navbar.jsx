@@ -19,8 +19,8 @@ export default function Navbar() {
             </nav>
             <nav className='navbar-bottom'>
                 <Link to="/builder" className='nav-link'><span className='gold-text nav-item'> <Pickaxe size={20} strokeWidth={2} />Builder</span></Link>
-                <Link to="/index" className='nav-link'><span className='gold-text nav-item'> <Book size={20} strokeWidth={2} />Index</span></Link>
                 <Link to="/builds" className='nav-link'><span className='gold-text nav-item'><ShieldCheck size={20} strokeWidth={2} />Completed Builds</span></Link>
+                <Link to="/index" className='nav-link'><span className='gold-text nav-item'> <Book size={20} strokeWidth={2} />Index</span></Link>
                 <Link to="/forums" className='nav-link'><span className='gold-text nav-item'><MessageCircle size={20} strokeWidth={2} />Forums</span></Link>
             </nav>
         </>
