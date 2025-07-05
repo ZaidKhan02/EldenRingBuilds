@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom'
 export default function HomePage() {
     return (
         <>
-            <div className="background-image">
+            <div className="background-image gold-text">
                 <div className='title'>
-                    <h1>CREATE. SHARE. DISCOVER</h1>
+                    <h1>CREATE. SHARE. DISCOVER.</h1>
                 </div>
                 <div className='description'>
                     <p>Create your builds. Compare and share. Search the game's index. Discuss the game with others.</p>

@@ -6,14 +6,13 @@
     background-repeat: no-repeat;
     min-height: 100vh;
     display: flex;
-    color: #d6b48e;
     flex-direction: column;
     justify-content: center;
     padding-left: 1rem;
 }
 
 .description {
-    max-width: 60ch;
+    max-width: 58ch;
 }
 
 .buttons {
@@ -25,6 +24,7 @@
 .about-section {
     padding: 10px 10%;
     text-align: center;
+    margin-bottom: 2rem;
 }
 
 .about-section h1 {
