@@ -1,0 +1,20 @@
+:root {
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: dark;
+  color: rgba(223, 229, 215, 0.87);
+  background-color: #121918;
+
+}
+
+.header {
+  font-family: 'Cinzel', serif;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}

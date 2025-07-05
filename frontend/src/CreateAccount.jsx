@@ -1,0 +1,44 @@
+
+
+export default function CreateAccount() {
+    return (
+        <>
+            <div className="background-image">
+                <div className="card">
+                    <h1 className="card-header gold-text">Create Account</h1>
+                    <form /*onSubmit={handleSubmit}*/>
+                        <div className="card-inputs">
+                            <input
+                                type="text"
+                                name="name"
+                                placeholder="Username"
+                                className="card-input"
+                                required
+                            /*onChange={handleChange}*/
+                            />
+                            <input
+                                type="email"
+                                name="email"
+                                placeholder="E-mail"
+                                className="card-input"
+                                required
+                            /*onChange={handleChange}*/
+                            />
+                            <input
+                                type="password"
+                                name="password"
+                                placeholder="Password"
+                                className="card-input"
+                                required
+                            /*onChange={handleChange}*/
+                            />
+                        </div>
+                        <div className="card-submission">
+                            <button className="submit-button">Create Account</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </>
+    )
+}
