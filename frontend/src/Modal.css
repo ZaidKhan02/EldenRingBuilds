@@ -1,0 +1,85 @@
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.modal-content {
+    background-color: #111;
+    padding: 2rem;
+    border: 1px solid #d6b48e;
+    border-radius: 8px;
+    max-height: 90vh;
+    overflow-y: auto;
+    color: #d6b48e;
+    width: 80%;
+    max-width: 900px;
+    position: relative;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: 1px solid #d6b48e;
+    color: #d6b48e;
+    font-size: 1rem;
+    padding: 4px 8px;
+    cursor: pointer;
+}
+
+.weapon-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.weapon-card {
+    background-color: #1a1a1a;
+    border: 1px solid #d6b48e;
+    border-radius: 6px;
+    padding: 10px;
+    cursor: pointer;
+    text-align: center;
+    color: #d6b48e;
+}
+
+.weapon-card img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    margin-bottom: 0.5rem;
+}
+
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1.5rem;
+}
+
+.pagination-controls button {
+    background-color: #333;
+    color: #d6b48e;
+    border: none;
+    padding: 8px 12px;
+    margin: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 4px;
+}
+
+.pagination-controls button.disabled {
+    background-color: #444;
+    color: #777;
+    cursor: not-allowed;
+}

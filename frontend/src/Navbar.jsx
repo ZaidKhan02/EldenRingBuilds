@@ -4,6 +4,8 @@ import { Pickaxe, Book, ShieldCheck, MessageCircle } from 'lucide-react';
 
 
 //maybe later make another component called NavItem where all the navitems are and we call it here
+//when logged in, the option in navbar will be profile (to view your builds) and logout
+//and in homepage, just a logout button.
 
 export default function Navbar() {
     return (

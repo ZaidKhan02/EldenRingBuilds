@@ -40,6 +40,7 @@
     background-color: #121918;
     color: white;
     border: 0.8px solid #d6b48e;
+    border-radius: 1px;
     padding: 8px 30px 8px 30px;
     cursor: pointer;
     text-align: center;
@@ -49,5 +50,5 @@
 }
 
 .submit-button:hover {
-    background-color: rgba(86, 86, 128, 0.345);
+    background-color: #1e2a2f;
 }

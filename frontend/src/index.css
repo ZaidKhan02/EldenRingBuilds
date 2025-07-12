@@ -13,8 +13,24 @@
   font-weight: bold;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-weight: 100;
+}
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+.page-header {
+  border-bottom: 0.8px solid #d6b48e;
+}
+
+input {
+  border: 0.8px solid #d6b48e;
+  border-radius: 1px;
+  outline: none;
+  width: 60%;
+  padding: 0.5rem;
+  background-color: #121918;
+  color: #d6b48e;
 }
