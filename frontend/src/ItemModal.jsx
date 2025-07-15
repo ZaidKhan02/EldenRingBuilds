@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 import './Modal.css';
 
 export default function ItemModal({ type, onSelect, onClose }) {
@@ -9,26 +10,20 @@ export default function ItemModal({ type, onSelect, onClose }) {
     const limit = 50;
 
     useEffect(() => {
-        setPage(1);
-        setSearchQuery('');
-    }, [type]);
-
-    useEffect(() => {
         const fetchItems = async () => {
-            console.log('Fetching type:', type);
             try {
-                const res = await fetch(
+                const res = await axios.get(
                     `https://eldenring.fanapis.com/api/${type}?limit=${limit}&page=${page}`,
-                    {
+                    /*{
                         headers: {
                             'Accept': 'application/json',
                             'User-Agent': 'Mozilla/5.0 (compatible; EldenBuilder/1.0)',
                         }
-                    }
+                    }*/
                 );
-                const data = await res.json();
+                const data = res.data;
                 console.log('Fetched data:', data);
-                setItems(data.data || []);
+                setItems(data.data);
                 setTotalPages(Math.ceil((data.total || 0) / limit));
             } catch (err) {
                 console.error(`Error fetching ${type}:`, err);
@@ -36,7 +31,6 @@ export default function ItemModal({ type, onSelect, onClose }) {
                 setTotalPages(1);
             }
         };
-
         fetchItems();
     }, [type, page]);
 
@@ -52,9 +46,8 @@ export default function ItemModal({ type, onSelect, onClose }) {
     return (
         <div className="modal-backdrop">
             <div className="modal-content">
-                <h2>Select a {formattedType}</h2>
+                <h2>Select {formattedType}</h2>
                 <button className="close-btn" onClick={onClose}>X</button>
-
                 <input
                     type="text"
                     placeholder={`Search ${formattedType}`}
@@ -63,26 +56,24 @@ export default function ItemModal({ type, onSelect, onClose }) {
                     className="search-bar"
                 />
 
-                <div className="weapon-grid">
+                <div className="item-grid">
                     {filteredItems.length > 0 ? (
                         filteredItems.map((item) => (
                             <div
                                 key={item.id}
-                                className="weapon-card"
+                                className="item-card"
                                 onClick={() => onSelect(item)}
                             >
                                 <img
                                     src={item.image || 'https://placehold.co/64x64?text=No+Image'}
                                     alt={item.name}
-                                    className="weapon-image"
+                                    className="item-image"
                                 />
                                 <p>{item.name}</p>
                             </div>
                         ))
                     ) : (
-                        <p style={{ textAlign: 'center', color: '#ccc' }}>
-                            No results found.
-                        </p>
+                        null
                     )}
                 </div>
 
@@ -90,7 +81,7 @@ export default function ItemModal({ type, onSelect, onClose }) {
                     <button onClick={handlePrev} disabled={page === 1}>
                         Previous
                     </button>
-                    <span style={{ margin: '0 1rem' }}>
+                    <span className='pagination-detail'>
                         Page {page} of {totalPages}
                     </span>
                     <button onClick={handleNext} disabled={page === totalPages}>

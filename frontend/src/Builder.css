@@ -84,7 +84,7 @@
     outline: none;
 }
 
-.weapon-image {
+.item-image {
     width: 3rem;
     height: 3rem;
     object-fit: contain;

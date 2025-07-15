@@ -8,20 +8,20 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 999;
+    z-index: 1;
 }
 
 .modal-content {
-    background-color: #111;
+    background-color: #121918;
     padding: 2rem;
     border: 1px solid #d6b48e;
-    border-radius: 8px;
-    max-height: 90vh;
+    max-height: 70vh;
     overflow-y: auto;
     color: #d6b48e;
     width: 80%;
     max-width: 900px;
     position: relative;
+    text-align: center;
 }
 
 .close-btn {
@@ -36,24 +36,31 @@
     cursor: pointer;
 }
 
-.weapon-grid {
+.close-btn:hover {
+    background-color: #1e2a2f;
+}
+
+.item-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     gap: 1rem;
     margin-top: 1.5rem;
 }
 
-.weapon-card {
-    background-color: #1a1a1a;
+.item-card {
+    background-color: #121918;
     border: 1px solid #d6b48e;
-    border-radius: 6px;
     padding: 10px;
     cursor: pointer;
     text-align: center;
     color: #d6b48e;
 }
 
-.weapon-card img {
+.item-card:hover {
+    background-color: #1e2a2f;
+}
+
+.item-card img {
     width: 100%;
     height: auto;
     object-fit: contain;
@@ -68,18 +75,26 @@
 }
 
 .pagination-controls button {
-    background-color: #333;
+    background-color: #121918;
     color: #d6b48e;
-    border: none;
+    border: 0.8px solid #d6b48e;
     padding: 8px 12px;
     margin: 5px;
     cursor: pointer;
     font-size: 14px;
-    border-radius: 4px;
+    width: 10%;
+}
+
+.pagination-controls button:hover {
+    background-color: #1e2a2f;
 }
 
 .pagination-controls button.disabled {
     background-color: #444;
     color: #777;
     cursor: not-allowed;
+}
+
+.pagination-detail {
+    margin: 0rem 1rem;
 }

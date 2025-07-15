@@ -3,21 +3,21 @@ import ItemModal from './ItemModal';
 import './Builder.css';
 
 export default function Builder() {
+    const stats = ["arc", "dex", "end", "fai", "int", "min", "str", "vig"];
     const [equipmentSlots, setEquipmentSlots] = useState({
-        mainHand: [null, null, null],
-        offHand: [null, null, null],
-        gear: [null, null, null, null],
-        talismans: [null, null, null, null],
-        items: [null, null, null, null],
+        mainHand: Array(3).fill(null), //i could do [null, null, null] instead, same thing
+        offHand: Array(3).fill(null),
+        gear: Array(4).fill(null),
+        talismans: Array(4).fill(null),
+        items: Array(4).fill(null),
         spells: Array(10).fill(null)
     });
 
     const [showModal, setShowModal] = useState(false);
-    const [activeSlot, setActiveSlot] = useState({ type: '', index: null });
+    const [activeSlot, setActiveSlot] = useState({ type: '', index: null }); //for example type is mainHand index is 1 (meaning 2nd box)
     const [activeType, setActiveType] = useState('weapons');
 
     const handleOpenModal = (type, index) => {
-        setActiveSlot({ type, index });
         const itemType =
             type === 'gear' ? 'armors' :
                 type === 'talismans' ? 'talismans' :
@@ -25,20 +25,21 @@ export default function Builder() {
                         type === 'spells' ? 'incantations' :
                             ((type === 'mainHand' || type === 'offHand') && index === 2) ? 'ammos' :
                                 'weapons';
-        setActiveType(itemType);
+        setActiveSlot({ type, index }); //this is needed because if i click 2nd or 3rd box, it updates only the 1st one. so this is needed to know what type it is and most importantly it sindex so it updates that one
+        setActiveType(itemType); //this is needed because if we didnt have it, then if we selected the gear slots, it will show weapons, since we have that as default above and here we set it as itemtype which works 
         setShowModal(true);
     };
 
     const handleItemSelect = (item) => {
         setEquipmentSlots((prev) => {
-            const updated = [...prev[activeSlot.type]];
+            const updated = [...prev[activeSlot.type]]; //reason we use active slot and not in clear is because in item select, we have to select a slot inorder to select an item. for clearing, we just clikc the button, hence no active slot needed
             updated[activeSlot.index] = item;
             return { ...prev, [activeSlot.type]: updated };
         });
         setShowModal(false);
     };
 
-    const handleClearSlot = (type, index) => {
+    const handleClearSlot = (type, index) => { //we call type and index since we want to clear a specific slot
         setEquipmentSlots((prev) => {
             const updated = [...prev[type]];
             updated[index] = null;
@@ -53,11 +54,11 @@ export default function Builder() {
                     key={index}
                     className="builder-button"
                     onClick={() =>
-                        item ? handleClearSlot(type, index) : handleOpenModal(type, index)
+                        item ? handleClearSlot(type, index) : handleOpenModal(type, index) //when clicked, if item exists, then it removes it, else it open the modal 
                     }
                 >
                     {item ? (
-                        <img src={item.image} alt={item.name} className="weapon-image" />
+                        <img src={item.image} alt={item.name} className="item-image" />
                     ) : (
                         <div className="empty-slot"></div>
                     )}
@@ -97,7 +98,7 @@ export default function Builder() {
                     <h2>Stats</h2>
                     <h3 className="gold-text">Level 1</h3>
                     <div className="stats-buttons">
-                        {["arc", "dex", "end", "fai", "int", "min", "str", "vig"].map((stat) => (
+                        {stats.map((stat) => (
                             <div className="stat" key={stat}>
                                 <label className="gold-text" htmlFor={stat}>{stat.toUpperCase()}</label>
                                 <input type="text" id={stat} name={stat} />
@@ -128,4 +129,5 @@ export default function Builder() {
         </div>
     );
 }
+
 
