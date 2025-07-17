@@ -1,10 +1,23 @@
 import { useState } from 'react';
-import ItemModal from './ItemModal';
+import Modal from './Modal';
 import './Builder.css';
 
 export default function Builder() {
     const stats = ["arc", "dex", "end", "fai", "int", "min", "str", "vig"];
+    const [statValues, setStatValues] = useState({
+        vig: 10,
+        min: 10,
+        end: 10,
+        str: 10,
+        dex: 10,
+        int: 10,
+        fai: 10,
+        arc: 10
+    });
+    const level = Object.values(statValues).reduce((sum, val) => sum + val, 0) - 79;
+
     const [equipmentSlots, setEquipmentSlots] = useState({
+        class: Array(1).fill(null),
         mainHand: Array(3).fill(null), //i could do [null, null, null] instead, same thing
         offHand: Array(3).fill(null),
         gear: Array(4).fill(null),
@@ -19,12 +32,14 @@ export default function Builder() {
 
     const handleOpenModal = (type, index) => {
         const itemType =
-            type === 'gear' ? 'armors' :
-                type === 'talismans' ? 'talismans' :
-                    type === 'items' ? 'items' :
-                        type === 'spells' ? 'incantations' :
-                            ((type === 'mainHand' || type === 'offHand') && index === 2) ? 'ammos' :
-                                'weapons';
+            type === 'class' ? 'classes' :
+                type === 'gear' ? 'armors' :
+                    type === 'talismans' ? 'talismans' :
+                        type === 'items' ? 'items' :
+                            type === 'spells' ? 'incantations' :
+                                (type === 'offHand' && index === 1) ? 'shields' :
+                                    ((type === 'mainHand' || type === 'offHand') && index === 2) ? 'ammos' :
+                                        'weapons';
         setActiveSlot({ type, index }); //this is needed because if i click 2nd or 3rd box, it updates only the 1st one. so this is needed to know what type it is and most importantly it sindex so it updates that one
         setActiveType(itemType); //this is needed because if we didnt have it, then if we selected the gear slots, it will show weapons, since we have that as default above and here we set it as itemtype which works 
         setShowModal(true);
@@ -58,7 +73,7 @@ export default function Builder() {
                     }
                 >
                     {item ? (
-                        <img src={item.image} alt={item.name} className="item-image" />
+                        <img src={item.image} alt={item.name} className="builder-image" />
                     ) : (
                         <div className="empty-slot"></div>
                     )}
@@ -77,7 +92,7 @@ export default function Builder() {
                     <input type="text" placeholder="Enter a build name" required />
 
                     <h2>Class</h2>
-                    <button className="builder-button"><div className="empty-slot"></div></button>
+                    {renderSlotButtons('class')}
 
                     <h2>Equipment</h2>
 
@@ -96,12 +111,22 @@ export default function Builder() {
 
                 <div className="builder-right">
                     <h2>Stats</h2>
-                    <h3 className="gold-text">Level 1</h3>
+                    <h3 className="gold-text">Level {level}</h3>
                     <div className="stats-buttons">
                         {stats.map((stat) => (
                             <div className="stat" key={stat}>
                                 <label className="gold-text" htmlFor={stat}>{stat.toUpperCase()}</label>
-                                <input type="text" id={stat} name={stat} />
+                                <input
+                                    type="text"
+                                    id={stat}
+                                    name={stat}
+                                    min="0"
+                                    value={statValues[stat]}
+                                    onChange={(e) => {
+                                        const value = Math.max(0, parseInt(e.target.value) || 0);
+                                        setStatValues((prev) => ({ ...prev, [stat]: value }));
+                                    }}
+                                />
                             </div>
                         ))}
                     </div>
@@ -120,7 +145,7 @@ export default function Builder() {
             </div>
 
             {showModal && (
-                <ItemModal
+                <Modal
                     type={activeType}
                     onSelect={handleItemSelect}
                     onClose={() => setShowModal(false)}

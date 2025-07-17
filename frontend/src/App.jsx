@@ -6,6 +6,7 @@ import Login from './Login'
 import CreateAccount from './CreateAccount'
 import Builder from './Builder'
 import Index from './Index'
+import ItemsPage from './ItemsPage'
 import CompletedBuilds from './CompletedBuilds'
 import Forums from './Forums'
 import Footer from './Footer'
@@ -25,6 +26,7 @@ export default function App() {
           <Route path='/builder' element={<Builder />} />
           <Route path='/builds' element={<CompletedBuilds />} />
           <Route path='/index' element={<Index />} />
+          <Route path="/index/:type" element={<ItemsPage />} />
           <Route path='/forums' element={<Forums />} />
         </Routes>
         <Footer />

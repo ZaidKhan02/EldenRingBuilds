@@ -1,0 +1,40 @@
+.item-grid {
+    display: grid;
+    /*grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));*/
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+    padding: 2rem;
+}
+
+.item-card {
+    border: 1px solid #d6b48e;
+    text-align: center;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.item-card:hover {
+    background-color: #1e2a2f;
+}
+
+.item-image {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+}
+
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.item-container {
+    padding: 2rem;
+}
