@@ -1,13 +1,17 @@
-.navbar-top {
+.navbar {
     top: 0;
     position: sticky;
+    z-index: 10;
+    background-color: #121918;
+}
+
+.navbar-top {
     display: flex;
     justify-content: space-between;
     width: 100%;
     padding-bottom: 1rem;
     border-bottom: 0.8px solid #d6b48e;
     align-items: baseline;
-    z-index: 1;
     background-color: #121918
 }
 
