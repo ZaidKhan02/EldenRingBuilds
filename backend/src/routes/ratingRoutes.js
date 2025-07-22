@@ -1,4 +1,5 @@
 import express from 'express';
+//importing controllers and middleware
 
 const router = express.Router();
 
