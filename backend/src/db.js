@@ -18,3 +18,6 @@ pool.on("connect", () => {
 
 export default pool;
 
+//this file is for database connection
+
+//THIS FILE WONT BE DELETED BUT I WILL NEED A sequalize.js file instead (refer to image in discord)

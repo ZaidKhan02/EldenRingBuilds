@@ -17,15 +17,16 @@
 .card-inputs {
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 .card-input {
     margin: 20px 40px 20px 40px;
     outline: none;
     border: 1px solid #d6b48e;
-    background-color: rgba(86, 86, 128, 0.345);
+    background-color: #1e2a2f;
     padding: 1rem;
-    color: black;
+    color: gray;
 }
 
 .card-input:focus {

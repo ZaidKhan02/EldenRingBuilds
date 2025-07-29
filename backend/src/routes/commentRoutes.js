@@ -1,4 +1,4 @@
-import express from 'express';
+{/*import express from 'express';
 //importing controllers and middleware
 
 const router = express.Router();
@@ -10,3 +10,4 @@ router.route('/:commentId').put(updateComment).delete(deleteComment);
 export default router
 
 //i will need middleware for authentication authMiddleware for creating, updating, deleting comments
+*/}

@@ -1,6 +1,6 @@
 .background-image {
     /*background-image: url('../images/eldenring.png');*/
-    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../images/eldenring2.png');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../images/eldenring2.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
