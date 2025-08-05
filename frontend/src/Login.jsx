@@ -1,23 +1,27 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useAuth } from './AuthContext';
 import './CommonStyles.css'
 
 export default function Login() {
     const [formData, setFormData] = useState({ email: "", password: "" });
     const [error, setError] = useState("");
+    const navigate = useNavigate();
+    const { login } = useAuth();
 
     const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+        setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const res = await axios.post("http://localhost:5001/api/user/login", formData);
-
-            // save token to localStorage
-            localStorage.setItem("token", res.data.token);
-            alert("Login successful!");
+            //update AuthContext + localStorage
+            login(res.data.token, res.data.user);
+            navigate("/builder");
         } catch (err) {
             setError(err.response?.data?.error || "Login failed");
         }
@@ -59,3 +63,4 @@ export default function Login() {
         </>
     )
 }
+

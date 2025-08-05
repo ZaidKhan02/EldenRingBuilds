@@ -1,4 +1,3 @@
-// controllers/userController.js
 import pool from '../db.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
@@ -6,8 +5,8 @@ import jwt from 'jsonwebtoken';
 //Get all users (admin/debug only)
 export const getAllUsers = async (req, res) => {
     try {
-        const result = await pool.query('SELECT id, username, email, created_at FROM users');
-        res.json(result.rows);
+        const users = await pool.query('SELECT id, username, email, created_at FROM users');
+        res.json(users.rows);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -16,23 +15,20 @@ export const getAllUsers = async (req, res) => {
 export const createUser = async (req, res) => {
     const { username, email, password } = req.body;
     try {
-        // check if email exists
-        const existing = await pool.query('SELECT id FROM users WHERE email = $1', [email]);
-        if (existing.rows.length > 0) {
-            return res.status(400).json({ error: "Email already registered" });
+        const existingUser = await pool.query('SELECT id FROM users WHERE email = $1 OR username = $2', [email, username]);
+        if (existingUser.rows.length > 0) {
+            return res.status(400).json({ error: "Email or username already registered" });
         }
 
-        // hash password
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const result = await pool.query(
+        const newUser = await pool.query(
             `INSERT INTO users (username, email, password_hash) 
-       VALUES ($1, $2, $3) 
-       RETURNING id, username, email, created_at`,
+            VALUES ($1, $2, $3) 
+            RETURNING id, username, email, created_at`,
             [username, email, hashedPassword]
         );
-
-        res.status(201).json(result.rows[0]);
+        res.status(201).json(newUser.rows[0]);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -41,12 +37,12 @@ export const createUser = async (req, res) => {
 export const loginUser = async (req, res) => {
     const { email, password } = req.body;
     try {
-        const result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
-        if (result.rows.length === 0) {
+        const existingUser = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+        if (existingUser.rows.length === 0) {
             return res.status(400).json({ error: "Invalid email or password" });
         }
 
-        const user = result.rows[0];
+        const user = existingUser.rows[0];
         const match = await bcrypt.compare(password, user.password_hash);
         if (!match) {
             return res.status(400).json({ error: "Invalid email or password" });
@@ -58,8 +54,7 @@ export const loginUser = async (req, res) => {
             process.env.JWT_SECRET,
             { expiresIn: "1d" }
         );
-
-        res.json({ token, user: { id: user.id, username: user.username, email: user.email } });
+        res.json({ token, user: { id: user.id, username: user.username, email: user.email, created_at: user.created_at } });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -68,12 +63,12 @@ export const loginUser = async (req, res) => {
 export const getUserById = async (req, res) => {
     const { id } = req.params;
     try {
-        const result = await pool.query(
-            'SELECT id, username, email, created_at FROM users WHERE id = $1',
-            [id]
-        );
-        if (result.rows.length === 0) return res.status(404).json({ error: "User not found" });
-        res.json(result.rows[0]);
+        const user = await pool.query(
+            'SELECT id, username, email, created_at FROM users WHERE id = $1', [id]);
+        if (user.rows.length === 0) {
+            return res.status(404).json({ error: "User not found" });
+        }
+        res.json(user.rows[0]);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -84,7 +79,9 @@ export const deleteUser = async (req, res) => {
     const { id } = req.params;
     try {
         const result = await pool.query('DELETE FROM users WHERE id = $1 RETURNING id', [id]);
-        if (result.rows.length === 0) return res.status(404).json({ error: "User not found" });
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: "User not found" });
+        }
         res.json({ message: "User and related data deleted successfully" });
     } catch (err) {
         res.status(500).json({ error: err.message });

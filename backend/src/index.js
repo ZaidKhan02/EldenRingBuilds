@@ -47,7 +47,6 @@ app.get("/", async (req, res) => {
     console.log("END");
     res.send(`The database name is : ${result.rows[0].current_database}`)
 });
-//REPLACE THIS WITH THE ORM approach, refer to image in discord
 
 
 app.listen(PORT, () => {

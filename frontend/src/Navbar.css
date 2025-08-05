@@ -64,3 +64,11 @@
     align-items: center;
     gap: 0.4rem;
 }
+
+.logout-btn {
+    background-color: #121918;
+    border: none;
+    cursor: pointer;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+
+}

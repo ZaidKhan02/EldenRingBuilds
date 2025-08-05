@@ -1,9 +1,13 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useAuth } from "./AuthContext";
 import './CommonStyles.css';
 
 export default function CreateAccount() {
     const [formData, setFormData] = useState({ username: "", email: "", password: "" });
+    const [error, setError] = useState("");
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -14,11 +18,10 @@ export default function CreateAccount() {
         e.preventDefault();
         try {
             const res = await axios.post("http://localhost:5001/api/user/register", formData);
-            alert("Account created successfully!");
+            navigate("/login");
             console.log("User:", res.data);
         } catch (err) {
-            alert(err.response?.data?.error || "Error creating account");
-
+            setError(err.response?.data?.error || "Something went wrong, please try again.");
         }
     };
 
@@ -56,6 +59,8 @@ export default function CreateAccount() {
                             onChange={handleChange}
                         />
                     </div>
+                    {error && <p style={{ color: "red" }}>{error}</p>}
+
                     <div className="card-submission">
                         <button type="submit" className="submit-button">Create Account</button>
                     </div>
